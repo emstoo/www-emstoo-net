@@ -1,0 +1,35 @@
+#:schema node_modules/wrangler/config-schema.json
+
+name = "www-emstoo-net"
+main = "src/index.ts"
+compatibility_date = "2025-11-16"
+workers_dev = false
+preview_urls = false
+
+[[routes]]
+pattern = "www.emstoo.net"
+custom_domain = true
+
+[vars]
+MAINTENANCE_MODE = "false"
+
+# R2 bucket that stores the markdown content (objects under the "content/" prefix).
+# Create it once with:  npx wrangler r2 bucket create www-emstoo-net-content
+[[r2_buckets]]
+binding = "CONTENT"
+bucket_name = "www-emstoo-net-content"
+
+[observability]
+enabled = false
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = true
+persist = true
+head_sampling_rate = 1
